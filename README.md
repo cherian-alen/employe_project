@@ -15,7 +15,7 @@ Attendance records are stored securely in the database.
 Admins can manage employee data and view attendance reports.
 Installation Instructions
 Clone this repository to your local machine:
-git clone https://github.com/your-username/employee-attendance.git
+git clone https://github.com/cherian-alen/employee-attendance.git
 
 Navigate to the project directory:
 cd employee-attendance
