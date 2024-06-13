@@ -1,0 +1,29 @@
+
+{% extends 'layout.html' %}
+{%block content%}  
+{% load static %}
+    <div id="page-wrapper">
+      <div class="main-page login-page ">
+          <h2 class="title1">Login</h2>
+          <div class="widget-shadow">
+              <div class="login-body">
+                  <form action="" method="post">
+                      {% csrf_token %}
+                      <input type="text" class="user" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}"  placeholder="Enter Your Username">
+                      <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="lock" placeholder="Password" >
+                      <div class="forgot-grid">
+                          
+                          <!-- <div class="forgot">
+                              <a href="#">forgot password?</a>
+                          </div> -->
+                          <div class="clearfix"> </div>
+                      </div>
+                      <input type="submit" name="Sign In" value="Sign In">
+                      
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+{%endblock%}

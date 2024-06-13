@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div>
+            <div class="panel-body search" style="display: flex; justify-content: space-between;">
+              
+               
+             
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project Title</th>
+                <th>Task Title</th>
+                <th>Due Date</th>
+                <th>Assigne</th>
+                <th>file</th>
+                <th>Status</th>
+                <th>Time Sheet</th>
+                {% if request.session.ut == 1 %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td><a>{{ task.project.title }}</a></td>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.due_date }}</td>
+                        <td>{{task.assigned_staff.username}}</td>
+                        <td><a href="{{task.file.url}}">file</a></td>
+                       
+                        <td><a href="/updatetask/{{task.id}}">{{task.status}}</a></td>
+
+                       
+                            <th><a href="/view_timesheet/{{task.id}}">View Status</a><br>
+                                {% if request.session.ut == 2 %}
+                            <a href="/add_timesheet/{{task.id}}">Add Status</a>
+                            {% endif %}
+
+                       </th>
+
+
+
+                        {% if request.session.ut == 1 %}
+                        <td>
+                            <a href="/deletetask/{{ task.id }}" onclick="return confirm('Are you sure you want to delete {{ project.title }}?')">Delete</a><br>
+                       
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var selected_project = "{{ selected_project_title }}";
+    var selected_staff_member = "{{ selected_staff_member }}";
+    if (selected_project) {
+      
+        $('#project-filter').val(selected_project);
+    }
+
+    if (selected_staff_member) {
+        $('#staff-filter').val(selected_staff_member);
+    }
+
+    $('#project-filter').change(function() {
+        $('#filter-form1').submit();
+    });
+
+    $('#staff-filter').change(function() {
+        $('#filter-form2').submit();
+    });
+</script>
+
+
+{% endblock %}

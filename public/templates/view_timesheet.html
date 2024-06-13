@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div>
+            <div class="panel-body search" style="display: flex; justify-content: space-between;">
+               
+                <h1 class="title1">Time Sheet</h1>
+
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project Title</th>
+                <th>Task Title</th>
+                <th>Due Date</th>
+                <th>Assigne</th>
+                <th>date</th>
+                <th>Time</th>
+                <th>Working hours</th>
+          
+            </tr>
+        </thead>
+        <tbody>
+                {% for time in timesheet %}
+                    <tr>
+                        <td><a>{{ time.task.project.title }}</a></td>
+                        <td>{{ time.task.title }}</td>
+                        <td>{{ time.task.due_date }}</td>
+                        <td>{{time.task.assigned_staff.username}}</td>
+                        <td>{{time.current_date}}</td>
+                        <td>{{time.current_time}}</td>
+
+                        <td>{{time.workinghours}} Hour</td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var selected_project = "{{ selected_project_title }}";
+    var selected_staff_member = "{{ selected_staff_member }}";
+    if (selected_project) {
+      
+        $('#project-filter').val(selected_project);
+    }
+
+    if (selected_staff_member) {
+        $('#staff-filter').val(selected_staff_member);
+    }
+
+    $('#project-filter').change(function() {
+        $('#filter-form1').submit();
+    });
+
+    $('#staff-filter').change(function() {
+        $('#filter-form2').submit();
+    });
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+<div id="page-wrapper">
+    <div class="main-page">
+        <div>
+            <div class="panel-body search" style="display: flex; justify-content: space-between;">
+                <h1 class="title1">View Leave</h1>
+
+            </div>
+            <br>
+        </div>
+        {% if request.session.ut == 2 %}
+        <button><a href="/add_leave">Apply leave</a></button>
+        {% endif %}
+       
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Staff</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Leave Type</th>
+                        <th>Reason</th>
+                        <th>response</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data %}
+                    <tr>
+                        <td>{{ i.userid.username }}</td>
+                        <td>{{ i.userid.contact }}</td>
+                        <td>{{ i.userid.email }}</td>
+                        <td>{{ i.date }}</td>
+                        <td>{{ i.ltype }}</td>
+                        <td>{{ i.reason }}</td>
+                        {% if request.session.ut == 1 %}
+                        {% if i.status == 1 %}
+
+                        <td>
+                          Approved
+                        </td>
+                        {% elif i.status == 2 %}
+                        <td>
+                            Rejected
+                          </td>
+                          {% else %}
+                          <td>
+                            <a href="/respondleave/{{i.id}}/approve">Approve</a>
+                            <a href="/respondleave/{{i.id}}/reject">Reject</a>
+                        </td>
+                        {% endif %}
+
+                        {% else %}
+                        {% if i.status == 1 %}
+
+                        <td>
+                          Approved
+                        </td>
+                        {% elif i.status == 2 %}
+                        <td>
+                            Rejected
+                          </td>
+                          {% else %}
+                          <td>Not responded</td>
+                        {% endif %}
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><br>
+<script>
+    var selected_project = "{{ selected_project_title }}";
+    var selected_staff_member = "{{ selected_staff_member }}";
+
+    if (selected_project) {
+        $('#project-filter').val(selected_project);
+    }
+
+    if (selected_staff_member) {
+        $('#staff-filter').val(selected_staff_member);
+    }
+
+    $('#project-filter').change(function() {
+        $('#filter-form1').submit();
+    });
+
+    $('#staff-filter').change(function() {
+        $('#filter-form2').submit();
+    });
+</script>
+
+{% endblock %}

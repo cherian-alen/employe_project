@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{%block content%}  
+{% load static %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div class="panel-body search" style="display: flex;justify-content: flex-end; ">
+
+          <h1>Salary</h1>
+        </div><br>
+        <div class="panel-body widget-shadow">
+
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Department</th>
+                      <th>Month</th>
+                      <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in salary%}
+                    <tr>
+                      <td>{{i.eid.username}}</td>
+                      <td>{{i.eid.Department.departmentname}}</td>
+                      <td>{{i.month}}</td>
+                      <td>{{i.salary}}</td>
+                  
+                     
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock%}

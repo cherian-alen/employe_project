@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% block content %}
+  {% load static %}
+  <br><br>
+  <div id="page-wrapper">
+    <div class="widget2">
+      <div class="form-body">
+        <h2 class="title1">Edit Project</h2>
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <h3>Related Files:</h3>
+          <ul>
+          {% for file in related_files %}
+            <li>
+              <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+              <input type="checkbox" name="remove_files" value="{{ file.id }}">
+              
+            </li>
+          {% endfor %}
+          </ul>
+          <span>*selected files will be removed</span> 
+          <input type="submit" value="Submit" id="sub_project">
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function(){
+      $("#id_staff").select2();
+        $("#sub_project").click(function(){
+            var start_date = $("#id_start_date").val()
+            var due_date = $("#id_due_date").val()
+            var currentDate = new Date();
+            var enteredStartDate = new Date(start_date);
+            currentDate.setHours(0, 0, 0, 0);
+            enteredStartDate.setHours(0, 0, 0, 0);
+            if (enteredStartDate < currentDate) {
+                alert("Start date must be greater than the current date");
+                return false;
+            }
+            if (due_date < start_date){
+                alert("Due date not less than start date");
+                return false;
+            }
+        })
+    })
+
+</script>
+  <style>
+    .form-body input[type="submit"] {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      color: #fff;
+      background: #F2B33F;
+      width: 40%;
+      padding: 0.6em 1em;
+      font-size: 1em;
+      margin: 0.5em auto 0;
+      display: block;
+      transition: 0.5s all;
+      -webkit-transition: 0.5s all;
+      -moz-transition: 0.5s all;
+      -ms-transition: 0.5s all;
+      -o-transition: 0.5s all;
+    }
+  </style>
+{% endblock %}

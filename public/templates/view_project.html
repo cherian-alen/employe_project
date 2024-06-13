@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div>
+            <div class="panel-body search" style="display: flex; justify-content: space-between;">
+                <form action="" method="GET" style="margin-right: 10px;" id="filter-form1">
+                    <select name="filter" id="project-filter">
+                        <option value="" selected>Select Project</option>
+                        {% for project_title in distinct_project_titles %}
+                            <option value="{{ project_title }}">{{ project_title }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+                <form action="" method="GET">
+                    <input type="text" name="search" placeholder="Search">
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project Title</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Files</th>
+                <th>Tasks</th>
+                {% if request.session.ut == 1 %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if request.session.ut == 1 %}
+                {% for project in all_projects %}
+                    <tr>
+                        <td><a href="/view_project_index/{{ project.id }}">{{ project.title }}</a></td>
+                        <td>{{ project.description }}</td>
+                        <td>{{ project.start_date }}</td>
+                        <td>{{ project.due_date }}</td>
+                        <td><a href="{{project.file.url}}" target="_blank">file</a></td>
+                        <td>
+                            <a href="/add_task/{{project.id}}">Add Tasks</a>/
+                            <a href="/view_task/{{project.id}}">View Tasks</a>
+                        </td>
+                        <td>
+                            <a href="/delete_project/{{ project.id }}" onclick="return confirm('Are you sure you want to delete {{ project.title }}?')">Delete</a><br>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var selected_project = "{{ selected_project_title }}";
+    var selected_staff_member = "{{ selected_staff_member }}";
+    if (selected_project) {
+      
+        $('#project-filter').val(selected_project);
+    }
+
+    if (selected_staff_member) {
+        $('#staff-filter').val(selected_staff_member);
+    }
+
+    $('#project-filter').change(function() {
+        $('#filter-form1').submit();
+    });
+
+    $('#staff-filter').change(function() {
+        $('#filter-form2').submit();
+    });
+</script>
+
+
+{% endblock %}

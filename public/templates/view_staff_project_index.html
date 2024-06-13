@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div>
+            <div class="panel-body search" style="display: flex; justify-content: space-between;">
+                <form action="" method="GET" style="margin-right: 10px;" id="filter-form1">
+                    <select name="filter" id="project-filter">
+                        <option value="" selected>Select Project</option>
+                        {% for project_title in distinct_project_titles %}
+                            <option value="{{ project_title }}">{{ project_title }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+              
+              
+            </div>
+            <br>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                   
+                    <tr>
+                        <th>Project Title</th>
+                        <th>Start Date</th>
+                        <th>Due Date</th>
+                        <th>File</th>
+                        <th>Assigned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in all_projects %}
+                    <tr>
+                        <td><a href="/view_project_index/{{ i.id }}">{{ i.title }}</a></td>
+                        <td>{{ i.start_date }}</td>
+                        <td>{{ i.due_date }}</td>
+                        <td><a href="{{i.file.url}}" target="_blank">file</a></td> 
+                        <td><a href="/view_task/{{i.id}}">View Assigned Works</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+   
+</div><br>
+
+<script>
+    var selected_project = "{{ selected_project_title }}";
+    var selected_staff_member = "{{ selected_staff_member }}";
+
+    if (selected_project) {
+        $('#project-filter').val(selected_project);
+    }
+
+    if (selected_staff_member) {
+        $('#staff-filter').val(selected_staff_member);
+    }
+
+    $('#project-filter').change(function() {
+        $('#filter-form1').submit();
+    });
+
+    $('#staff-filter').change(function() {
+        $('#filter-form2').submit();
+    });
+</script>
+
+{% endblock %}

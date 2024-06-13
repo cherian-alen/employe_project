@@ -1,0 +1,128 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div >
+            <div >
+                <div class="panel-body search" style="display: flex; justify-content: flex-end;">
+                    <form action="" method="GET">
+                        <input type="text" name="search" placeholder="Search">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+                <br>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% if request.session.ut == 1%}
+            {% for i in a %}
+            <div class="col-md-6 general-grids widget-shadow">
+                <h4 class="title2">Project Name:</h4>
+                <div class="bs-example1" data-example-id="embedded-scrollspy">
+                    <nav id="navbar-example2" class="navbar navbar-default navbar-static">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="/view_project_index/{{i.id}}">{{ i.title }}</a>
+                            </div>
+                            <div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+                                <!-- Add any navigation links or content here -->
+                            </div>
+                        </div>
+                    </nav>
+                    <div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example scroll scrollbar1">
+                        <h4 id="fat">Description</h4>
+                        <p>{{ i.description }}</p>
+                        <!-- <h4 id="fat">Assigned Manager</h4>
+                        <p>{{ i.staff }}</p> -->
+                        <h4 id="fat">Start Date</h4>
+                        <p>{{ i.start_date }}</p>
+                        <h4 id="fat">Due Date</h4>
+                        <p>{{ i.due_date }}</p>
+                        <h4 id="fat">Team</h4>
+                        <a href="/view_team_details/{{i.id}}"><p>{{ i.team }}</p></a>
+                        <h4 id="fat">Team Members</h4>
+                        <p>
+                            {% for member in i.team.team_members.all %}
+                                <li>{{ member.name }}</li>
+                            {% endfor %}
+                        </p>
+                        <h4 id="fat">Related Files</h4>
+                        <ul>
+                            {% for file in i.file.all %}
+                                <li><a href="{{ file.file.url }}">{{ file.file }}</a></li>
+                            {% endfor %}
+                        </ul><br>
+                        {% if request.session.ut == 1%}
+                        <button><a href="/edit_project/{{i.id}}">Edit</a></button>
+                        <button><a href="/delete_project/{{i.id}}" onclick="return confirm('Are you sure you want to delete {{ i.title }}?')">Delete</a></button><br><br>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {%endif%}
+            {%if request.session.ut == 3%}
+            {% for i in c %}
+            <div class="col-md-6 general-grids widget-shadow">
+                <h4 class="title2">Project Name:</h4>
+                <div class="bs-example1" data-example-id="embedded-scrollspy">
+                    <nav id="navbar-example2" class="navbar navbar-default navbar-static">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <a class="navbar-brand" href="/view_project_index/{{i.id}}">{{ i.title }}</a>
+                            </div>
+                            <div class="collapse navbar-collapse bs-example-js-navbar-scrollspy">
+                                <!-- Add any navigation links or content here -->
+                            </div>
+                        </div>
+                    </nav>
+                    <div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example scroll scrollbar1">
+                        <h4 id="fat">Description</h4>
+                        <p>{{ i.description }}</p>
+                        <!-- <h4 id="fat">Assigned Manager</h4>
+                        <p>{{ i.staff }}</p> -->
+                        <h4 id="fat">Start Date</h4>
+                        <p>{{ i.start_date }}</p>
+                        <h4 id="fat">Due Date</h4>
+                        <p>{{ i.due_date }}</p>
+                        <h4 id="fat">Team</h4>
+                        <a href="/view_team_details/{{i.id}}"><p>{{ i.team }}</p></a>
+                        <h4 id="fat">Team Members</h4>
+                        <p>
+                            {% for member in i.team.team_members.all %}
+                                <li>{{ member.name }}</li>
+                            {% endfor %}
+                        </p>
+                        <h4 id="fat">Related Files</h4>
+                        <ul>
+                            {% for file in i.file.all %}
+                                <li><a href="{{ file.file.url }}">{{ file.file }}</a></li>
+                            {% endfor %}
+                        </ul><br>
+                        {% if request.session.ut == 1%}
+                        <button><a href="/edit_project/{{i.id}}">Edit</a></button>
+                        <button><a href="/delete_project/{{i.id}}" onclick="return confirm('Are you sure you want to delete {{ i.title }}?')">Delete</a></button><br><br>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+            
+            {% endfor %}
+            {%endif%}
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#id_status").change(function(){
+            $("#status-form").submit();
+        })
+    })
+</script>
+{% endblock %}

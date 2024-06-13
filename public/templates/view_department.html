@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{%block content%}  
+{% load static %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div class="panel-body search" style="display: flex;justify-content: flex-end; ">
+
+            
+        </div><br>
+        <div class="panel-body widget-shadow">
+
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                      <th>Name</th>
+                     <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in dep%}
+                    <tr>
+                      <td>{{i.departmentname}}</td>
+                      <td><a href="/deletedep/{{i.id}}">Delete</a></td>
+                    </td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endblock%}

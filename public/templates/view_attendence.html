@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% load static %}
+{% if messages %}
+        {% for message in messages %}
+           <script>
+            alert('{{message}}')
+           </script>
+        {% endfor %}
+{% endif %}
+
+<div id="page-wrapper">
+    <div class="main-page">
+        <div>
+            <div class="panel-body search" style="display: flex; justify-content: space-between;">
+                <h1 class="title1">View Attendence</h1>
+            </div>
+            <br>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Staff</th>
+                        <th>Conatct</th>
+                        <th>Email</th>
+                        <th>Attendence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in att %}
+                    <tr>
+                        <td>{{ i.current_date }}</td>
+                        {% if i.current_time %}
+                        <td>{{ i.current_time }}</td>
+                        {% else %}
+                        <td>No data available</td>
+                        {% endif %}                      
+                      <td>{{ i.emid.username }}</td>
+                      <td>{{ i.emid.contact }}</td>
+                      <td>{{ i.emid.email }}</td>
+                     
+                       <td>{{ i.attendence }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div><br>
+<script>
+    var selected_project = "{{ selected_project_title }}";
+    var selected_staff_member = "{{ selected_staff_member }}";
+
+    if (selected_project) {
+        $('#project-filter').val(selected_project);
+    }
+
+    if (selected_staff_member) {
+        $('#staff-filter').val(selected_staff_member);
+    }
+
+    $('#project-filter').change(function() {
+        $('#filter-form1').submit();
+    });
+
+    $('#staff-filter').change(function() {
+        $('#filter-form2').submit();
+    });
+</script>
+
+{% endblock %}

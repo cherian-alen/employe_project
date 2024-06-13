@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{%block content%}  
+{% load static %}
+{% if a %}
+<script>
+    alert("Login Credentials Invalid")
+</script>
+{%endif%}
+<style>
+    img{
+        width: 100%;
+        height:100%;
+    }
+    body, html {
+    margin: 0;
+    padding: 0;
+}
+.hi{
+position: relative;
+font-size: 30px;
+z-index: 6;
+font-family: 'Times New Roman', Times, serif;
+left: 310px;
+color: white;
+bottom: 550px;
+}
+.emt{
+    color: white;
+    position: relative;
+    top: 300px;
+    font-size: 80px;
+    font-family: 'Times New Roman', Times, serif;
+    left: 500px;
+}
+.ems{
+    color: rgb(255, 204, 0);
+}
+.emsc{
+    font-size: 50px;
+}
+
+</style>
+
+<div>
+    <h1 class="emt"><span class="ems">Employe</span> Attendence</h1>
+
+    <img src="../static/assets/images/company.avif" alt="">
+    <h1 class="hi"><span class="emsc">C</span>oming together is a <span class="ems">beginning</span>, <span class="emsc">s</span>taying together is <span class="ems">progress</span>, and <span class="emsc">w</span>orking together is <span class="ems">success</span></h1>
+</div>
+
+{%endblock%}

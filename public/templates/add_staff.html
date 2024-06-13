@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+{%block content%}  
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<head>
+    {%if x %}
+    <script>
+        alert('User Email Already Exist')
+    </script>
+    {%endif%}
+</head>
+<div id="page-wrapper">
+    <div class="login-page">
+        <h2 class="title1"> Staff Register</h2>
+        <div class="sign-up-row widget-shadow">
+            <!-- <h5>Personal Information :</h5> -->
+        <form action="#" method="post">
+            {%csrf_token%}
+            {{form.as_p}}
+
+            <select name="dep" id="" class="reg-form">
+                <option value="">Select Department</option>
+                {% for i in dep %}
+                <option value="{{i.id}}">{{i.departmentname}}</option>
+                {% endfor  %}
+            </select>
+            <div class="io" style="padding: 10px;">
+
+            </div>
+            <input type="button" name="photo" id="w3lSubject" class="contact-input" value="CAPTURE YOUR IMAGE" />
+            <div class="sub_home">
+                    <input type="submit" value="Submit" id="sub">
+                <div class="clearfix"> </div>
+            </div>
+            
+        </form>
+
+        <script>
+            var $j = jQuery.noConflict();
+        
+            $j(document).ready(function () {
+                $j("input[name='photo']").on("click", function () {
+                    // Get the values from the form
+                    var nameValue = $j("input[name='username']").val();
+                    var contactValue = $j("input[name='registrationid']").val();
+                    var csrftoken = $j("[name=csrfmiddlewaretoken]").val();
+                   
+        console.log("contactValue:", contactValue);
+                    // Make an AJAX request to your Flask route to execute the take_img function
+                    $j.ajax({
+                        type: "POST",
+                        url: "/take_img",
+                        data: { fname: nameValue, registration: contactValue , csrfmiddlewaretoken: csrftoken},
+                        success: function (response) {
+                            // Handle the response if needed
+                            alert("Image captured successfully");
+                        },
+                        error: function (error) {
+                            alert("Error capturing image");
+                            console.error("Error:", error);
+                        }
+                    });
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function(){
+                $("#id_designation").select2()
+            })
+        </script>
+
+        <script>
+    $("input[type='submit']").on("click",function(){
+    
+    name=$("input[name='username']").val()
+    email=$("input[name='email']").val()
+    password=$("input[name='password']").val()
+    phone=$("input[name='contact']").val()
+    regno=$("input[name='registrationid']").val()
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var usernameRegex = /^\S+$/;
+ 
+    if(name==""){
+     alert("Enter name!!!!!!!!!!!!!!!!!!");
+     return false;
+    } 
+    if (!usernameRegex.test(name)) {
+    alert("Username cannot contain spaces!");
+    return false;
+}
+    if(email=="" || !emailRegex.test(email)){
+     alert("Enter Valid Email!!!!!!!!!!!!!!!!!!!1");
+     return false;
+    } 
+  
+    if(password==""){
+     alert("Enter password!!!!!!!!!!!!!!!!!!");
+     return false;
+    } 
+    if(phone ="" || phone.length!=10){ 
+     alert("Enter valid phone number");
+     return false;
+    } 
+    if(regno== "" || !$.isNumeric(regno)){
+     alert("Enter valid register number")
+     return false;
+    }
+    
+ })
+        </script>
+        </div>
+    </div>
+</div>
+{%endblock%}

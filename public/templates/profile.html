@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{%block content%}  
+{% load static %}
+<head>
+    {%if x %}
+    <script>
+        alert('User Email Already Exist')
+    </script>
+    {%endif%}
+</head>
+<style>
+ 
+</style>
+<div id="page-wrapper">
+    <div class="login-page">
+        <h2 class="title1">Profile</h2>
+        <div class="sign-up-row widget-shadow">
+
+        <!-- <h5>Personal Information :</h5> -->
+        <h1>Name:</h1>
+        <p>{{us.username}}</p>
+        <h1>Email:</h1>
+        <p>{{us.email}}</p> 
+        <h1>Contact:</h1>
+        <p>{{us.contact}}</p>
+        <h1>Daily Salary:</h1>
+        {% if us.salary == 0 %}
+        <p>Not Updated</p>
+        {% else %}
+<p>{{us.salary}}</p>
+        {% endif %}
+        <div class="clearfix"> </div>
+ <a href="profileedit"> <input type="button" name="Sign In" value="Edit"></a>
+
+        <script>
+            $(document).ready(function(){
+                $("#id_designation").select2()
+            })
+        </script>
+        </div>
+    </div>
+</div>
+{%endblock%}
